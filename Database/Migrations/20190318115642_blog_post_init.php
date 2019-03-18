@@ -14,9 +14,9 @@ class Migration_blog_post_init extends Migration
 
         $query->protect(false)->insert([
             'post_slug' => 'first-post',
-            'post_title' => 'First Post',
+            'post_title' => 'First Post Title',
             'post_description' => 'First post description.',
-            'post_text' => '# First Post' . "\n" . 'Text.',
+            'post_text' => 'First post text.',
             'post_active' => 1
         ]);
 	}

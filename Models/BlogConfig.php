@@ -7,6 +7,6 @@ use BasicApp\Core\DatabaseConfig;
 class BlogConfig extends DatabaseConfig
 {
 
-    public $admin_editor_class = 'markdown'; // editor
+    public $admin_editor_class = 'form-control markdown';
 
 }
