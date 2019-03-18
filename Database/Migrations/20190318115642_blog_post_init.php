@@ -18,7 +18,7 @@ class Migration_blog_post_init extends Migration
             'post_description' => 'First post description.',
             'post_text' => '# First Post' . "\n" . 'Text.',
             'post_active' => 1
-        ])->protect(true);
+        ]);
 	}
 
 	public function down()
