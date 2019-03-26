@@ -28,7 +28,7 @@ class BlogPostModel extends \BasicApp\Core\Model
 		'post_active' => 'in_list[0,1]'
 	];
 
-	protected static $fieldLabels = [
+	protected $labels = [
 		'post_id' => 'ID',
 		'post_slug' => 'Slug',
 		'post_title' => 'Title',
@@ -38,6 +38,8 @@ class BlogPostModel extends \BasicApp\Core\Model
 		'post_text' => 'Text',
 		'post_active' => 'Active'
 	];
+
+    protected $translations = 'blog';
 
 	protected $returnType = BlogPost::class;
 

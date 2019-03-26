@@ -29,10 +29,10 @@ echo admin_theme_widget('table', [
     'head' => [
         'columns' => [
             ['content' => '#', 'options' => ['class' => 'd-none d-sm-table-cell']],
-            ['content' => BlogPostModel::fieldLabel('post_created_at'), 'options' => ['class' => 'd-none d-md-table-cell']],
-            ['content' => BlogPostModel::fieldLabel('post_slug')],
-            ['content' => BlogPostModel::fieldLabel('post_title')],
-            ['content' => BlogPostModel::fieldLabel('post_active')],
+            ['content' => BlogPostModel::label('post_created_at'), 'options' => ['class' => 'd-none d-md-table-cell']],
+            ['content' => BlogPostModel::label('post_slug')],
+            ['content' => BlogPostModel::label('post_title')],
+            ['content' => BlogPostModel::label('post_active')],
             ['options' => ['colspan' => 2]]
         ]
     ],
