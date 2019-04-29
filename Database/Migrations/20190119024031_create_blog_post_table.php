@@ -2,9 +2,7 @@
 
 namespace BasicApp\Blog\Database\Migrations;
 
-use CodeIgniter\Database\Migration;
-
-class Migration_create_blog_post_table extends Migration
+class Migration_create_blog_post_table extends \BasicApp\Core\Migration
 {
 
 	public $tableName = 'blog_posts';
