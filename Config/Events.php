@@ -21,3 +21,5 @@ Events::on('admin_options_menu', function($event)
         'url' => classic_url('admin/config', ['class' => $modelClass])
     ];
 });
+
+Events::on('install', ['BasicApp\Blog\Hooks\Install', 'run']);
