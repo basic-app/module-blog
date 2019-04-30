@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @package Basic App Blog
+ * @license MIT License
+ * @link    http://basic-app.com
+ */
 namespace BasicApp\Blog\Database\Migrations;
 
 class Migration_create_blog_post_table extends \BasicApp\Core\Migration

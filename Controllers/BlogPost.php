@@ -1,8 +1,16 @@
 <?php
-
+/**
+ * @package Basic App Blog
+ * @license MIT License
+ * @link    http://basic-app.com
+ */
 namespace BasicApp\Blog\Controllers;
 
+use Psr\Log\LoggerInterface;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
 use BasicApp\Blog\Models\BlogPostModel;
+use BasicApp\Blog\Config\BlogConfig;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class BlogPost extends \BasicApp\Core\PublicController
@@ -14,11 +22,25 @@ class BlogPost extends \BasicApp\Core\PublicController
 
     protected $viewPath = 'BasicApp\Blog\BlogPost';
 
+    protected $blogConfig;
+
+    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    {
+        parent::initController($request, $response, $logger);
+
+        $this->blogConfig = config(BlogConfig::class);
+    }
+
 	public function index()
 	{
 		$query = new BlogPostModel;
 
 		$query->where('post_active', 1);
+
+        if ($this->blogConfig->multilanguage)
+        {
+            $query->where('post_lang', $this->request->getLocale());
+        }
 
 		if ($this->orderBy)
 		{
@@ -54,6 +76,11 @@ class BlogPost extends \BasicApp\Core\PublicController
 		{
 			throw new PageNotFoundException;
 		}
+
+        if ($model->post_lang != $this->request->getLocale())
+        {
+            return $this->redirect($model->url());
+        }
 
 		return $this->render('view', [
 			'model' => $model

@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @package Basic App Blog
+ * @license MIT License
+ * @link    http://basic-app.com
+ */
 use CodeIgniter\Events\Events;
 
 Events::on('admin_main_menu', function($menu)

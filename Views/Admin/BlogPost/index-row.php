@@ -13,6 +13,7 @@ echo admin_theme_widget('tableRow', [
             ],
             'content' => date('Y-m-d', strtotime($model->post_created_at))
         ],
+        ['content' => $model->post_lang],
         [
             'options' => ['class' => 'process'],
             'content' => $model->post_slug

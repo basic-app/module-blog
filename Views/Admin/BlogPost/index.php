@@ -12,7 +12,7 @@ $this->data['actionMenu'][] = [
 		'link_user_id' => $parentId
 	]),
 	'label' => 'Add Post', 
-	'icon' => 'plus',
+	'icon' => 'fa fa-plus',
 	'linkOptions' => [
 		'class' => 'btn btn-success'
 	]	
@@ -30,6 +30,7 @@ echo admin_theme_widget('table', [
         'columns' => [
             ['content' => '#', 'options' => ['class' => 'd-none d-sm-table-cell']],
             ['content' => BlogPostModel::label('post_created_at'), 'options' => ['class' => 'd-none d-md-table-cell']],
+            ['content' => BlogPostModel::label('post_lang')],
             ['content' => BlogPostModel::label('post_slug')],
             ['content' => BlogPostModel::label('post_title')],
             ['content' => BlogPostModel::label('post_active')],

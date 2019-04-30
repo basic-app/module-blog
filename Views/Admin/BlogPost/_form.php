@@ -1,5 +1,7 @@
 <?php
 
+use BasicApp\Core\LocaleHelper;
+
 echo admin_theme_widget('formFieldText', [
     'name'  => 'post_title',
     'value' => $model->post_title,
@@ -24,7 +26,7 @@ echo admin_theme_widget('formFieldTextarea', [
     ]
 ]);
 
-$blogConfig = config(BasicApp\Blog\Models\BlogConfig::class);
+$blogConfig = config(BasicApp\Blog\Config\BlogConfig::class);
 
 echo admin_theme_widget('formFieldTextarea', [
     'name'  => 'post_text',
@@ -43,6 +45,16 @@ echo admin_theme_widget('formFieldCheckbox', [
     'label' => $model->label('post_active'),
     'error' => array_key_exists('post_active', $errors) ? $errors['post_active'] : null
 ]);
+
+
+echo admin_theme_widget('formFieldSelect', [
+    'name'  => 'post_lang',
+    'items' => LocaleHelper::langItems(),
+    'value' => $model->post_lang,
+    'label' => $model->label('post_lang'),
+    'error' => array_key_exists('post_lang', $errors) ? $errors['post_lang'] : null
+]);
+
 
 echo admin_theme_widget('formErrors', ['errors' => $errors]);
 

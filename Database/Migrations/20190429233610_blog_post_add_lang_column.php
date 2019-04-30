@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @package Basic App Blog
+ * @license MIT License
+ * @link    http://basic-app.com
+ */
 namespace BasicApp\Blog\Database\Migrations;
 
 class Migration_blog_post_add_lang_column extends \BasicApp\Core\Migration
@@ -9,20 +13,20 @@ class Migration_blog_post_add_lang_column extends \BasicApp\Core\Migration
 
 	public function up()
 	{
-        /*
+        $app = config('app');
+
         $this->forge->addColumn($this->tableName, [
             'post_lang' => [
                 'type' => 'CHAR',
                 'constraint' => 2,
                 'null' => false,
-                'default' => 'en'
+                'default' => $app->defaultLocale
             ]
         ]);
 
-        $this->dropKey($this->tableName, 'post_slug');
-        */
+        $this->tableDropKey($this->tableName, 'post_slug');
 
-        $this->addKey($this->tableName, ['post_slug', 'post_lang'], false, true);
+        $this->tableAddKey($this->tableName, ['post_slug', 'post_lang'], false, true);
 	}
 
 	public function down()

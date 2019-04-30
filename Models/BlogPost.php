@@ -1,9 +1,15 @@
 <?php
-
+/**
+ * @package Basic App Blog
+ * @license MIT License
+ * @link    http://basic-app.com
+ */
 namespace BasicApp\Blog\Models;
 
+use BasicApp\Core\LocaleHelper;
 use CodeIgniter\Events\Events;
 use StdClass;
+use Config\Services;
 
 class BlogPost extends \BasicApp\Core\Entity
 {
@@ -26,6 +32,8 @@ class BlogPost extends \BasicApp\Core\Entity
 
 	public $post_active;
 
+    public $post_lang;
+
 	public function url()
 	{
 		$url = 'blog/' . $this->post_id;
@@ -34,6 +42,10 @@ class BlogPost extends \BasicApp\Core\Entity
 		{
 			$url .= '-' . $this->post_slug;
 		}
+
+        $url = LocaleHelper::addLocale($url, $this->post_lang);
+
+        helper(['url']);
 
 		return site_url($url);
 	}
