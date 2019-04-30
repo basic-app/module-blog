@@ -15,7 +15,7 @@ class Install
     {
         $query = BlogPostModel::factory();
 
-        $count = $query->count();
+        $count = $query->countAllResults();
 
         if ($count > 0)
         {
