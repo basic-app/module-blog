@@ -15,7 +15,7 @@ class Migration_create_blog_post_table extends \BasicApp\Core\Migration
 	{
 		$this->forge->addField([
 			'post_id' => $this->primaryColumn(),
-			'post_created_at' => $this->createColumn(),
+			'post_created_at' => $this->createdColumn(),
 			'post_updated_at' => $this->updatedColumn(),
 			'post_slug' => $this->stringColumn([
 				'unique' => true
