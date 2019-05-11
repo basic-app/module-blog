@@ -26,7 +26,11 @@ class Migration_blog_post_add_lang_column extends \BasicApp\Core\Migration
 
 	public function down()
 	{
+        $this->tableDropKey($this->tableName, $this->keyName(['post_slug', 'post_lang']));
+
         $this->forge->dropColumn($this->tableName, 'post_lang');
+
+        $this->tableAddKey($this->tableName, ['post_slug'], false, true);
 	}
 
 }
