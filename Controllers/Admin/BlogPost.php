@@ -6,19 +6,6 @@
  */
 namespace BasicApp\Blog\Controllers\Admin;
 
-use BasicApp\Blog\Models\Admin\BlogPostModel;
-
-class BlogPost extends \BasicApp\Core\AdminCrudController
+class BlogPost extends BaseBlogPost
 {
-
-	protected $modelClass = BlogPostModel::class;
-
-	protected $viewPath = 'BasicApp\Blog\Admin\BlogPost';
-
-	protected $returnUrl = 'admin/blog-post';
-
-    protected $orderBy = 'post_created_at DESC';
-
-    protected $perPage = 10;
-
 }

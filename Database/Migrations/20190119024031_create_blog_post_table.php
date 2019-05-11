@@ -14,52 +14,16 @@ class Migration_create_blog_post_table extends \BasicApp\Core\Migration
 	public function up()
 	{
 		$this->forge->addField([
-			'post_id' => [
-				'type' => 'INT',
-				'constraint' => 11,
-				'unsigned' => true,
-				'auto_increment' => true
-			],
-			'post_created_at' => [
-				'type' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
-				'null' => true
-			],
-			'post_updated_at' => [
-				'type' => 'TIMESTAMP NULL',
-				'default' => null
-			],
-			'post_slug' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
-				'null' => true,
-				'default' => null,
+			'post_id' => $this->primaryColumn(),
+			'post_created_at' => $this->createColumn(),
+			'post_updated_at' => $this->updatedColumn(),
+			'post_slug' => $this->stringColumn([
 				'unique' => true
-			],
-			'post_title' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
-				'null' => true,
-				'default' => null
-			],
-			'post_description' => [
-				'type' => 'VARCHAR',
-				'constraint' => 255,
-				'null' => true,
-				'default' => null
-			],			
-			'post_text' => [
-				'type' => 'TEXT',
-				'constraint' => 65535,
-				'null' => true,
-				'default' => null
-			],
-			'post_active'  => [
-				'type' => 'INT',
-				'constraint' => 1,
-				'unsigned' => true,
-				'null' => false,
-				'default' => 0
-			]
+			]),
+			'post_title' => $this->stringColumn(),
+			'post_description' => $this->stringColumn(),			
+			'post_text' => $this->textColumn(),
+			'post_active' => $this->boolColumn()
 		]);
 
 		$this->forge->addKey('post_active');

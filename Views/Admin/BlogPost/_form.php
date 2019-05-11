@@ -49,7 +49,7 @@ echo admin_theme_widget('formFieldCheckbox', [
 
 echo admin_theme_widget('formFieldSelect', [
     'name'  => 'post_lang',
-    'items' => LocaleHelper::langItems(),
+    'items' => LocaleHelper::getLangItems(),
     'value' => $model->post_lang,
     'label' => $model->label('post_lang'),
     'error' => array_key_exists('post_lang', $errors) ? $errors['post_lang'] : null

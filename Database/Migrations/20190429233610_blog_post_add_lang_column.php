@@ -16,12 +16,7 @@ class Migration_blog_post_add_lang_column extends \BasicApp\Core\Migration
         $app = config('app');
 
         $this->forge->addColumn($this->tableName, [
-            'post_lang' => [
-                'type' => 'CHAR',
-                'constraint' => 2,
-                'null' => false,
-                'default' => $app->defaultLocale
-            ]
+            'post_lang' => $this->langColumn()
         ]);
 
         $this->tableDropKey($this->tableName, 'post_slug');

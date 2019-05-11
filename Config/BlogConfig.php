@@ -6,11 +6,6 @@
  */
 namespace BasicApp\Blog\Config;
 
-class BlogConfig extends \BasicApp\Core\DatabaseConfig
+class BlogConfig extends BaseBlogConfig
 {
-
-    public $admin_editor_class = 'form-control markdown';
-
-    public $multilanguage = 0;
-
 }

@@ -6,6 +6,9 @@
  */
 namespace BasicApp\Blog\Models\Admin;
 
-class BlogPost extends BaseBlogPost
+abstract class BaseBlogPost extends \BasicApp\Blog\Models\BlogPost
 {
+
+	protected $modelClass = BlogPostModel::class;
+
 }
