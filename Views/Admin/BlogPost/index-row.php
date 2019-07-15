@@ -1,5 +1,7 @@
 <?php
 
+use BasicApp\Helpers\Url;
+
 echo admin_theme_widget('tableRow', [
     'columns' => [
         [
@@ -27,14 +29,14 @@ echo admin_theme_widget('tableRow', [
         [
             'options' => ['style' => 'width: 1%; padding-left: 10px;'],
             'content' => admin_theme_widget('tableButtonUpdate', [
-                'url' => classic_url('admin/blog-post/update', ['id' => $model->post_id]),
+                'url' => Url::createUrl('admin/blog-post/update', ['id' => $model->post_id]),
                 'label' => t('admin', 'Update')
             ])
         ],
         [
             'options' => ['style' => 'width: 1%; padding-left: 10px; padding-right: 20px'],
             'content' => admin_theme_widget('tableButtonDelete', [
-                'url' => classic_url('admin/blog-post/delete', ['id' => $model->post_id]),
+                'url' => Url::createUrl('admin/blog-post/delete', ['id' => $model->post_id]),
                 'label' => t('admin', 'Delete')
             ])
         ]

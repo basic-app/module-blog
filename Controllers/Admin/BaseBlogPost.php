@@ -8,7 +8,7 @@ namespace BasicApp\Blog\Controllers\Admin;
 
 use BasicApp\Blog\Models\Admin\BlogPostModel;
 
-abstract class BaseBlogPost extends \BasicApp\Core\AdminCrudController
+abstract class BaseBlogPost extends \BasicApp\Admin\AdminCrudController
 {
 
 	protected $modelClass = BlogPostModel::class;

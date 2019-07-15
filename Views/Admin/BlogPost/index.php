@@ -3,12 +3,12 @@
 require __DIR__ . '/_common.php';
 
 use BasicApp\Blog\Models\BlogPostModel;
+use BasicApp\Helpers\Url;
 
 unset($this->data['breadcrumbs'][count($this->data['breadcrumbs']) - 1]['url']);
 
 $this->data['actionMenu'][] = [
-	'url' => classic_url('admin/blog-post/create', [
-		'returnUrl' => classic_uri_string(),
+	'url' => Url::returnUrl('admin/blog-post/create', [
 		'link_user_id' => $parentId
 	]),
 	'label' => 'Add Post', 

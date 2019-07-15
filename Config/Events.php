@@ -5,6 +5,7 @@
  * @link    http://basic-app.com
  */
 use CodeIgniter\Events\Events;
+use BasicApp\Helpers\Url;
 
 Events::on('admin_main_menu', function($menu)
 {
@@ -22,7 +23,7 @@ Events::on('admin_options_menu', function($event)
     $event->items[$modelClass] = [
         'label' => $modelClass::getFormName(),
         'icon' => 'fa fa-coffee',
-        'url' => classic_url('admin/config', ['class' => $modelClass])
+        'url' => Url::createUrl('admin/config', ['class' => $modelClass])
     ];
 });
 
