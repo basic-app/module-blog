@@ -4,8 +4,8 @@
  * @license MIT License
  * @link    http://basic-app.com
  */
-namespace BasicApp\Blog\Models;
+namespace BasicApp\Blog\Forms;
 
-class BlogConfigModel extends BaseBlogConfigModel
+class BlogConfigForm extends BaseBlogConfigForm
 {
 }

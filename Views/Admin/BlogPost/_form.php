@@ -1,61 +1,40 @@
 <?php
 
-use BasicApp\Core\LocaleHelper;
+use BasicApp\Helpers\Url;
 
-echo admin_theme_widget('formFieldText', [
-    'name'  => 'post_title',
-    'value' => $model->post_title,
-    'label' => $model->label('post_title'),
-    'error' => array_key_exists('post_title', $errors) ? $errors['post_title'] : null
-]);
+$adminTheme = service('adminTheme');
 
-echo admin_theme_widget('formFieldText', [
-    'name'  => 'post_slug',
-    'value' => $model->post_slug,
-    'label' => $model->label('post_slug'),
-    'error' => array_key_exists('post_slug', $errors) ? $errors['post_slug'] : null
-]);
+$form = $adminTheme->createForm(['model' => $model, 'errors' => $errors]);
 
-echo admin_theme_widget('formFieldTextarea', [
-    'name'  => 'post_description',
-    'value' => $model->post_description,
-    'label' => $model->label('post_description'),
-    'error' => array_key_exists('post_description', $errors) ? $errors['post_description'] : null,
-    'options' => [
-        'rows' => 5
-    ]
-]);
+$url = Url::currentUrl();
+
+echo $form->formOpen($url);
+
+echo $form->input('post_title');
+
+echo $form->input('post_slug');
+
+echo $form->textarea('post_description', ['rows' => 5]);
 
 $blogConfig = config(BasicApp\Blog\Config\BlogConfig::class);
 
-echo admin_theme_widget('formFieldTextarea', [
-    'name'  => 'post_text',
-    'value' => $model->post_text,
-    'label' => $model->label('post_text'),
-    'error' => array_key_exists('post_text', $errors) ? $errors['post_text'] : null,
-    'options' => [
-        'class' => $blogConfig->admin_editor_class,
-        'rows' => 10
-    ]
-]);
+if ($blogConfig->admin_editor_class)
+{
+    echo $form->textarea('post_text', ['rows' => 5, 'class' => $blogConfig->admin_editor_class]);
+}
+else
+{
+    echo $form->editorTextarea('post_text', ['rows' => 5]);
+}
 
-echo admin_theme_widget('formFieldCheckbox', [
-    'name'  => 'post_active',
-    'value' => $model->post_active,
-    'label' => $model->label('post_active'),
-    'error' => array_key_exists('post_active', $errors) ? $errors['post_active'] : null
-]);
+echo $form->checkbox('post_active');
 
+echo $form->dropdown('post_lang', BasicApp\Helpers\LocaleHelper::getLangItems());
 
-echo admin_theme_widget('formFieldSelect', [
-    'name'  => 'post_lang',
-    'items' => LocaleHelper::getLangItems(),
-    'value' => $model->post_lang,
-    'label' => $model->label('post_lang'),
-    'error' => array_key_exists('post_lang', $errors) ? $errors['post_lang'] : null
-]);
+echo $form->renderErrors();
 
+$label = $model->getPrimaryKey() ? t('admin', 'Update') : t('admin', 'Insert');
 
-echo admin_theme_widget('formErrors', ['errors' => $errors]);
+echo $form->submit($label);
 
-echo admin_theme_widget('formButton', ['type' => 'submit', 'label' => $model->getPrimaryKey() ? t('admin', 'Update') : t('admin', 'Insert')]);
+echo $form->formClose();

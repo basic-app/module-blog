@@ -11,33 +11,57 @@ $this->data['actionMenu'][] = [
 	'url' => Url::returnUrl('admin/blog-post/create', [
 		'link_user_id' => $parentId
 	]),
-	'label' => 'Add Post', 
+	'label' => t('admin', 'Create'), 
 	'icon' => 'fa fa-plus',
 	'linkOptions' => [
 		'class' => 'btn btn-success'
 	]	
 ];
 
-$rows = [];
+$adminTheme = service('adminTheme');
 
-foreach($elements as $model)
-{
-    $rows[] = app_view('BasicApp\Blog\Admin\BlogPost\index-row', ['model' => $model]);
-}
+echo $adminTheme->table([
+    'rows' => $elements,
+    'columns' => function($model) {
 
-echo admin_theme_widget('table', [
-    'head' => [
-        'columns' => [
-            ['content' => '#', 'options' => ['class' => 'd-none d-sm-table-cell']],
-            ['content' => BlogPostModel::label('post_created_at'), 'options' => ['class' => 'd-none d-md-table-cell']],
-            ['content' => BlogPostModel::label('post_lang')],
-            ['content' => BlogPostModel::label('post_slug')],
-            ['content' => BlogPostModel::label('post_title')],
-            ['content' => BlogPostModel::label('post_active')],
-            ['options' => ['colspan' => 2]]
-        ]
-    ],
-    'rows' => $rows
+        if (!$model)
+        {
+            $model = BlogPostModel::createEntity();
+        }
+
+        return [
+            $this->createColumn([
+                'attribute' => 'post_id',
+                'header' => $model->label('post_id')
+            ])->displaySmall()->number(),
+            $this->createColumn([
+                'attribute' => 'post_created_at',
+                'header' => $model->label('post_created_at')
+            ])->displayMedium(),
+            $this->createColumn([
+                'attribute' => 'post_lang',
+                'header' => $model->label('post_lang')
+            ]),
+            $this->createColumn([
+                'attribute' => 'post_slug',
+                'header' => $model->label('post_slug')
+            ]),
+            $this->createColumn([
+                'attribute' => 'post_title',
+                'header' => $model->label('post_title')
+            ]),
+            $this->createBooleanColumn([
+                'attribute' => 'post_active',
+                'header' => $model->label('post_active')
+            ]),
+            $this->createUpdateLinkColumn([
+                'url' => Url::createUrl('admin/blog-post/update', ['id' => $model->getPrimaryKey()])
+            ]),
+            $this->createDeleteLinkColumn([
+                'url' => Url::createUrl('admin/blog-post/delete', ['id' => $model->getPrimaryKey()])
+            ])
+        ];
+    }
 ]);
 
 if ($pager)

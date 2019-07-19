@@ -13,24 +13,22 @@ class Migration_blog_post_add_lang_column extends \BasicApp\Core\Migration
 
 	public function up()
 	{
-        $app = config('app');
-
         $this->forge->addColumn($this->tableName, [
             'post_lang' => $this->langColumn()
         ]);
 
-        $this->tableDropKey($this->tableName, 'post_slug');
+        $this->dropUniqueKey($this->tableName, 'post_slug');
 
-        $this->tableAddKey($this->tableName, ['post_slug', 'post_lang'], false, true);
+        $this->createUniqueKey($this->tableName, ['post_slug', 'post_lang']);
 	}
 
 	public function down()
 	{
-        $this->tableDropKey($this->tableName, $this->keyName($this->tableName, ['post_slug', 'post_lang']));
+        $this->dropUniqueKey($this->tableName, ['post_slug', 'post_lang']);
 
-        $this->forge->dropColumn($this->tableName, 'post_lang');
+        $this->dropColumn($this->tableName, 'post_lang');
 
-        $this->tableAddKey($this->tableName, ['post_slug'], false, true);
+        $this->createUniqueKey($this->tableName, ['post_slug']);
 	}
 
 }
