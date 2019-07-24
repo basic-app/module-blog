@@ -17,6 +17,8 @@ abstract class BaseLastPosts extends \BasicApp\Core\Widget
 
     public $orderBy = 'post_created_at DESC';
 
+    public $viewNamespace = 'BasicApp\Blog';
+
     public function run()
     {
         $request = Services::request();
