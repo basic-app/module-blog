@@ -1,9 +1,11 @@
 <?php
 
-$model->setMetaTags();
+$model->setMetaTags($this);
 
-echo theme_widget('post', [
+$theme = service('theme');
+
+echo $theme->post([
 	'title' => $model->post_title,
 	'text' => $model->text(),
-	'created' => 'Posted on ' . $model->createdAsString()
+	'created' => t('blog', 'Posted on {created}', ['{created}' => $model->createdAsString()]),
 ]);?>

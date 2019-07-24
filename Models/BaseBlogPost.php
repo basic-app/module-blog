@@ -6,10 +6,8 @@
  */
 namespace BasicApp\Blog\Models;
 
-use BasicApp\Core\LocaleHelper;
-use CodeIgniter\Events\Events;
-use StdClass;
-use Config\Services;
+use BasicApp\Helpers\LocaleHelper;
+use BasicApp\Blog\BlogEvents;
 
 abstract class BaseBlogPost extends \BasicApp\Core\Entity
 {
@@ -57,13 +55,7 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 
 	public function text()
 	{
-		$event = new StdClass;
-
-		$event->post_text = $this->post_text;
-
-		Events::trigger('blog_post_text', $event);
-
-		return $event->post_text;
+        return BlogEvents::blogPostText($this->post_text);
 	}
 
     public function setMetaTags($view = null)

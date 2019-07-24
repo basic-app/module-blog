@@ -2,27 +2,32 @@
 
 use BasicApp\Site\Models\PageModel;
 
+$page = PageModel::getPage('blog', true, ['page_name' => 'Blog']);
+
+$page->setMetaTags($this);
+
 $items = [];
 
 foreach($elements as $model)
 {
-	$items[] = [
-		'title' => $model->post_title,
-		'url' => $model->url(),
-		'created' => 'Posted on ' . $model->createdAsString(),
-		'description' => $model->post_description
-	];
+    $items[] = [
+        'title' => $model->post_title,
+        'url' => $model->url(),
+        'created' => t('blog', 'Posted on {created}', ['{created}' => $model->createdAsString()]),
+        'description' => $model->post_description
+    ];
 }
 
-$page = PageModel::getPage('blog', true, ['page_name' => 'Blog']);
+$theme = service('theme');
 
-$page->setMetaTags();
-
-echo theme_widget('page', [
+echo $theme->page([
     'title' => $page->page_name, 
     'text' => $page->page_text
 ]);
 
-echo theme_widget('posts', ['items' => $items]);
+echo $theme->posts(['items' => $items]);
 
-echo $pager->links('default', 'bootstrap4');
+if ($pager)
+{
+    echo $pager->links('default', 'bootstrap4');
+}
