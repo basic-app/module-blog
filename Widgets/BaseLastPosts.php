@@ -17,7 +17,7 @@ abstract class BaseLastPosts extends \BasicApp\Core\Widget
 
     public $orderBy = 'post_created_at DESC';
 
-    public function render()
+    public function run()
     {
         $request = Services::request();
 
@@ -39,7 +39,7 @@ abstract class BaseLastPosts extends \BasicApp\Core\Widget
 
         $elements = $query->findAll($this->limit);
 
-        return app_view('BasicApp\Blog\last-posts', [
+        return $this->render('last-posts', [
             'elements' => $elements
         ]);
     }
