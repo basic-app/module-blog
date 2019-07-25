@@ -26,5 +26,3 @@ Events::on('admin_options_menu', function($event)
         'url' => Url::createUrl('admin/config', ['class' => $modelClass])
     ];
 });
-
-Events::on('install', ['BasicApp\Blog\Hooks\Install', 'run']);
