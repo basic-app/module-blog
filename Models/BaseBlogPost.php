@@ -14,24 +14,6 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 
 	protected $modelClass = BlogPostModel::class;
 
-	public $post_id;
-
-	public $post_created_at;
-
-	public $post_updated_at;
-
-	public $post_slug;
-
-	public $post_title;
-
-	public $post_description;
-
-	public $post_text;
-
-	public $post_active;
-
-    public $post_lang;
-
 	public function url()
 	{
 		$url = 'blog/' . $this->post_id;
