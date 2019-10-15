@@ -1,9 +1,5 @@
 <?php
-/**
- * @package Basic App Blog
- * @license MIT License
- * @link    http://basic-app.com
- */
+
 use CodeIgniter\Events\Events;
 use BasicApp\Helpers\Url;
 

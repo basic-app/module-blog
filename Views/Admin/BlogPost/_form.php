@@ -1,40 +1,50 @@
 <?php
 
+use BasicApp\Blog\Config\BlogConfig;
 use BasicApp\Helpers\Url;
+
+$blogConfig = config(BlogConfig::class);
 
 $adminTheme = service('adminTheme');
 
-$form = $adminTheme->createForm(['model' => $model, 'errors' => $errors]);
+$form = $adminTheme->createForm($model, $errors);
 
-$url = Url::currentUrl();
+echo $form->open();
 
-echo $form->formOpen($url);
-
-echo $form->input('post_title');
-
-echo $form->input('post_slug');
-
-echo $form->textarea('post_description', ['rows' => 5]);
-
-$blogConfig = config(BasicApp\Blog\Config\BlogConfig::class);
-
-if ($blogConfig->admin_editor_class)
+if ($blogConfig->multilanguage)
 {
-    echo $form->textarea('post_text', ['rows' => 5, 'class' => $blogConfig->admin_editor_class]);
+    echo $form->dropdownGroup($data, 'post_lang', BasicApp\Helpers\LocaleHelper::getLangItems());
 }
 else
 {
-    echo $form->editorTextarea('post_text', ['rows' => 5]);
+    echo $form->hidden($data, 'post_lang');
 }
 
-echo $form->checkbox('post_active');
+echo $form->inputGroup($data, 'post_title');
 
-echo $form->dropdown('post_lang', BasicApp\Helpers\LocaleHelper::getLangItems());
+echo $form->inputGroup($data, 'post_slug');
+
+echo $form->textareaGroup($data, 'post_description', ['rows' => 5]);
+
+if ($blogConfig->admin_editor_class)
+{
+    echo $form->textareaGroup($data, 'post_text', ['rows' => 5, 'class' => $blogConfig->admin_editor_class]);
+}
+else
+{
+    echo $form->editorTextareaGroup($data, 'post_text', ['rows' => 5]);
+}
+
+echo $form->checkboxGroup($data, 'post_active');
 
 echo $form->renderErrors();
 
-$label = $model->getPrimaryKey() ? t('admin', 'Update') : t('admin', 'Insert');
+echo $form->beginButtons();
 
-echo $form->submit($label);
+$label = $data->getPrimaryKey() ? t('admin', 'Update') : t('admin', 'Insert');
 
-echo $form->formClose();
+echo $form->submitButton($label);
+
+echo $form->endButtons();
+
+echo $form->close();

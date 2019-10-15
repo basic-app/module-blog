@@ -34,9 +34,9 @@ abstract class BaseBlogConfigForm extends \BasicApp\Configs\DatabaseConfigForm
     {
         $return = '';
 
-        $return .= $form->input('admin_editor_class');
+        $return .= $form->inputGroup($this, 'admin_editor_class');
 
-        $return .= $form->checkbox('multilanguage');
+        $return .= $form->checkboxGroup($this, 'multilanguage');
 
         return $return;
     }

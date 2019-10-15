@@ -4,6 +4,9 @@ require __DIR__ . '/_common.php';
 
 use BasicApp\Blog\Models\BlogPostModel;
 use BasicApp\Helpers\Url;
+use BasicApp\Blog\Config\BlogConfig;
+
+$blogConfig = config(BlogConfig::class);
 
 unset($this->data['breadcrumbs'][count($this->data['breadcrumbs']) - 1]['url']);
 
@@ -23,21 +26,29 @@ $adminTheme = service('adminTheme');
 echo $adminTheme->table([
     'defaultRow' => BlogPostModel::createEntity(),
     'rows' => $elements,
-    'columns' => function($model) {
-        return [
+    'columns' => function($model) use ($blogConfig) {
+
+        $return = [
             $this->createColumn(['attribute' => 'post_id'])->displaySmall()->number(),
             $this->createColumn(['attribute' => 'post_created_at'])->displayMedium(),
-            $this->createColumn(['attribute' => 'post_lang']),
-            $this->createColumn(['attribute' => 'post_slug']),
-            $this->createColumn(['attribute' => 'post_title']),
-            $this->createBooleanColumn(['attribute' => 'post_active']),
-            $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']),
-            $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete'])
         ];
+
+        if ($blogConfig->multilanguage)
+        {
+            $return[] =  $this->createColumn(['attribute' => 'post_lang']);
+        }
+
+        $return[] = $this->createColumn(['attribute' => 'post_slug']);
+        $return[] = $this->createColumn(['attribute' => 'post_title']);
+        $return[] = $this->createBooleanColumn(['attribute' => 'post_active']);
+        $return[] = $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']);
+        $return[] = $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete']);
+
+        return $return;
     }
 ]);
 
 if ($pager)
 {
-    echo $pager->links('default', 'bootstrap4');
+    echo $pager->links('default', 'adminTheme');
 }
