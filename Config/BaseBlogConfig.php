@@ -8,7 +8,7 @@ namespace BasicApp\Blog\Config;
 
 use BasicApp\Blog\Forms\BlogConfigForm;
 
-abstract class BaseBlogConfig extends \BasicApp\Configs\DatabaseConfig
+abstract class BaseBlogConfig extends \BasicApp\Config\DatabaseConfig
 {
 
     public $admin_editor_class = 'form-control markdown';

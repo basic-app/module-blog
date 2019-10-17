@@ -8,7 +8,7 @@ namespace BasicApp\Blog\Forms;
 
 use BasicApp\Blog\Config\BlogConfig;
 
-abstract class BaseBlogConfigForm extends \BasicApp\Configs\DatabaseConfigForm
+abstract class BaseBlogConfigForm extends \BasicApp\Config\DatabaseConfigForm
 {
 
     protected $returnType = BlogConfig::class;
