@@ -1,9 +1,10 @@
 <?php
 
-use CodeIgniter\Events\Events;
 use BasicApp\Helpers\Url;
+use BasicApp\Admin\AdminEvents;
+use BasicApp\Blog\Forms\BlogConfigForm;
 
-Events::on('admin_main_menu', function($menu)
+AdminEvents::onAdminMainMenu(function($menu)
 {
     $menu->items['blog'] = [
         'url' => Url::createUrl('admin/blog-post'),
@@ -12,13 +13,13 @@ Events::on('admin_main_menu', function($menu)
     ];
 });
 
-Events::on('admin_options_menu', function($event)
+AdminEvents::onAdminOptionsMenu(function($event)
 {
     $modelClass = 'BasicApp\Blog\Forms\BlogConfigForm';
 
-    $event->items[$modelClass] = [
-        'label' => $modelClass::getFormName(),
+    $event->items[BlogConfigForm::class] = [
+        'label' => t('admin.menu', 'Blog'),
         'icon' => 'fa fa-coffee',
-        'url' => Url::createUrl('admin/config', ['class' => $modelClass])
+        'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
     ];
 });

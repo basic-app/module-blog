@@ -23,9 +23,25 @@ $this->data['actionMenu'][] = [
 
 $adminTheme = service('adminTheme');
 
+$labels = [
+    BlogPostModel::label('post_id'),
+    BlogPostModel::label('post_created_at'),
+];
+
+if ($blogConfig->multilanguage)
+{
+    $labels[] = BlogPostModel::label('post_lang');
+}
+
+$labels[] = BlogPostModel::label('post_slug');
+$labels[] = BlogPostModel::label('post_title');
+$labels[] = BlogPostModel::label('post_active');
+$labels[] = '';
+$labels[] = '';
+
 echo $adminTheme->table([
-    'defaultRow' => BlogPostModel::createEntity(),
-    'rows' => $elements,
+    'labels' => $labels,
+    'data' => $elements,
     'columns' => function($model) use ($blogConfig) {
 
         $return = [

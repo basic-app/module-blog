@@ -25,18 +25,13 @@ abstract class BaseBlogConfigForm extends \BasicApp\Config\DatabaseConfigForm
 
     protected $translations = 'blog';
 
-    public static function getFormName()
-    {
-        return t('admin.menu', 'Blog');
-    }
-
-    public function renderForm($form, $row)
+    public function renderForm($form, $data)
     {
         $return = '';
 
-        $return .= $form->inputGroup($row, 'admin_editor_class');
+        $return .= $form->inputGroup($data, 'admin_editor_class');
 
-        $return .= $form->checkboxGroup($row, 'multilanguage');
+        $return .= $form->checkboxGroup($data, 'multilanguage');
 
         return $return;
     }
