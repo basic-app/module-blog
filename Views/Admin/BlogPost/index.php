@@ -4,9 +4,6 @@ require __DIR__ . '/_common.php';
 
 use BasicApp\Blog\Models\BlogPostModel;
 use BasicApp\Helpers\Url;
-use BasicApp\Blog\Config\BlogConfig;
-
-$blogConfig = config(BlogConfig::class);
 
 unset($this->data['breadcrumbs'][count($this->data['breadcrumbs']) - 1]['url']);
 
@@ -23,44 +20,27 @@ $this->data['actionMenu'][] = [
 
 $adminTheme = service('adminTheme');
 
-$labels = [
-    BlogPostModel::label('post_id'),
-    BlogPostModel::label('post_created_at'),
-];
-
-if ($blogConfig->multilanguage)
-{
-    $labels[] = BlogPostModel::label('post_lang');
-}
-
-$labels[] = BlogPostModel::label('post_slug');
-$labels[] = BlogPostModel::label('post_title');
-$labels[] = BlogPostModel::label('post_active');
-$labels[] = '';
-$labels[] = '';
-
 echo $adminTheme->table([
-    'labels' => $labels,
+    'labels' => [
+        BlogPostModel::label('post_id'),
+        BlogPostModel::label('post_created_at'),
+        BlogPostModel::label('post_slug'),
+        BlogPostModel::label('post_title'),
+        BlogPostModel::label('post_active'),
+        '',
+        ''
+    ],
     'data' => $elements,
-    'columns' => function($model) use ($blogConfig) {
-
-        $return = [
+    'columns' => function($model) {
+        return [
             $this->createColumn(['attribute' => 'post_id'])->displaySmall()->number(),
             $this->createColumn(['attribute' => 'post_created_at'])->displayMedium(),
+            $this->createColumn(['attribute' => 'post_slug']),
+            $this->createColumn(['attribute' => 'post_title']),
+            $this->createBooleanColumn(['attribute' => 'post_active']),
+            $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']),
+            $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete'])
         ];
-
-        if ($blogConfig->multilanguage)
-        {
-            $return[] =  $this->createColumn(['attribute' => 'post_lang']);
-        }
-
-        $return[] = $this->createColumn(['attribute' => 'post_slug']);
-        $return[] = $this->createColumn(['attribute' => 'post_title']);
-        $return[] = $this->createBooleanColumn(['attribute' => 'post_active']);
-        $return[] = $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']);
-        $return[] = $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete']);
-
-        return $return;
     }
 ]);
 

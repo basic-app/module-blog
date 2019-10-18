@@ -29,11 +29,6 @@ abstract class BaseLastPosts extends \BasicApp\Core\Widget
 
         $blogConfig = config(BlogConfig::class);
 
-        if ($blogConfig->multilanguage)
-        {
-            $query->where('post_lang', $request->getLocale());
-        }
-
         if ($this->orderBy)
         {
             $query->orderBy($this->orderBy);

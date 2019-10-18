@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use BasicApp\Blog\Models\BlogPostModel;
-use BasicApp\Blog\Config\BlogConfig;
+use BasicApp\Blog\Config\Blog as BlogConfig;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 abstract class BaseBlogPost extends \BasicApp\Core\PublicController
@@ -36,11 +36,6 @@ abstract class BaseBlogPost extends \BasicApp\Core\PublicController
 		$query = new BlogPostModel;
 
 		$query->where('post_active', 1);
-
-        if ($this->blogConfig->multilanguage)
-        {
-            $query->where('post_lang', $this->request->getLocale());
-        }
 
 		if ($this->orderBy)
 		{
@@ -70,20 +65,15 @@ abstract class BaseBlogPost extends \BasicApp\Core\PublicController
 
 		$query->where('post_id', $id);
 
-		$model = $query->first();
+		$data = $query->first();
 
-		if (!$model)
+		if (!$data)
 		{
 			throw new PageNotFoundException;
 		}
 
-        if ($model->post_lang != $this->request->getLocale())
-        {
-            return $this->redirect($model->url());
-        }
-
 		return $this->render('view', [
-			'model' => $model
+			'data' => $data
 		]);
 	}
 

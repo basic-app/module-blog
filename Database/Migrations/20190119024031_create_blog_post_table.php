@@ -21,15 +21,14 @@ class Migration_create_blog_post_table extends \BasicApp\Core\Migration
 			'post_title' => $this->string()->toArray(),
 			'post_description' => $this->string()->toArray(),
 			'post_text' => $this->text()->toArray(),
-			'post_active' => $this->boolean()->toArray(),
-            'post_lang' => $this->lang()->toArray()
+			'post_active' => $this->boolean()->toArray()
 		]);
 
 		$this->forge->addKey('post_active');
 
 		$this->forge->addKey('post_id', true);
 
-        $this->forge->addKey(['post_slug', 'post_lang'], false, true);
+        $this->forge->addKey(['post_slug'], false, true);
 
 		$this->forge->createTable($this->tableName);
 	}

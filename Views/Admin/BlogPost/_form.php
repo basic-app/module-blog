@@ -1,6 +1,6 @@
 <?php
 
-use BasicApp\Blog\Config\BlogConfig;
+use BasicApp\Blog\Config\Blog as BlogConfig;
 use BasicApp\Helpers\Url;
 
 $blogConfig = config(BlogConfig::class);
@@ -10,15 +10,6 @@ $adminTheme = service('adminTheme');
 $form = $adminTheme->createForm($model, $errors);
 
 echo $form->open();
-
-if ($blogConfig->multilanguage)
-{
-    echo $form->dropdownGroup($data, 'post_lang', BasicApp\Helpers\LocaleHelper::getLangItems());
-}
-else
-{
-    echo $form->hidden($data, 'post_lang');
-}
 
 echo $form->inputGroup($data, 'post_title');
 

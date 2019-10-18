@@ -1,11 +1,11 @@
 <?php
 
-$model->setMetaTags($this);
+$data->setMetaTags($this);
 
 $theme = service('theme');
 
 echo $theme->post([
-	'title' => $model->post_title,
-	'content' => $model->text(),
-	'created' => t('blog', 'Posted on {created}', ['{created}' => $model->createdAsString()]),
+	'title' => $data->post_title,
+	'content' => $data->getText(),
+	'created' => t('blog', 'Posted on {created}', ['{created}' => $data->getCreatedAsString()]),
 ]);?>

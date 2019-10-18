@@ -14,7 +14,14 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 
 	protected $modelClass = BlogPostModel::class;
 
-	public function url()
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->post_active = 1;
+    }
+
+	public function getUrl()
 	{
 		$url = 'blog/' . $this->post_id;
 
@@ -23,19 +30,15 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 			$url .= '-' . $this->post_slug;
 		}
 
-        $url = LocaleHelper::addLocaleToUrl($url, $this->post_lang);
-
-        helper(['url']);
-
 		return site_url($url);
 	}
 
-	public function createdAsString()
+	public function getCreatedAsString()
 	{
 		return date('Y-m-d', strtotime($this->post_created_at));
 	}
 
-	public function text()
+	public function getText()
 	{
         return BlogEvents::blogPostText($this->post_text);
 	}

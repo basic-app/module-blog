@@ -6,6 +6,6 @@
  */
 namespace BasicApp\Blog\Config;
 
-class BlogConfig extends BaseBlogConfig
+class Blog extends BaseBlog
 {
 }

@@ -23,8 +23,7 @@ abstract class BaseBlogPostModel extends \BasicApp\Core\Model
 		'post_created_at' => 'Created',
 		'post_updated_at' => 'Updated',
 		'post_text' => 'Text',
-		'post_active' => 'Active',
-        'post_lang' => 'Lang'
+		'post_active' => 'Active'
 	];
 
     protected $translations = 'blog';
