@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Blog\Forms;
 
-use BasicApp\Blog\Config\BlogConfig;
+use BasicApp\Blog\Config\Blog as BlogConfig;
 
 abstract class BaseBlogConfigForm extends \BasicApp\Config\DatabaseConfigForm
 {
