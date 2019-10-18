@@ -4,22 +4,28 @@ use BasicApp\Helpers\Url;
 use BasicApp\Admin\AdminEvents;
 use BasicApp\Blog\Forms\BlogConfigForm;
 
-AdminEvents::onAdminMainMenu(function($menu)
+if (class_exists(AdminEvents::class))
 {
-    $menu->items['blog'] = [
-        'url' => Url::createUrl('admin/blog-post'),
-        'label' => t('admin.menu', 'Blog'),
-        'icon' => 'fa fa-coffee'
-    ];
-});
+    AdminEvents::onAdminMainMenu(function($menu)
+    {
+        $menu->items['blog'] = [
+            'url' => Url::createUrl('admin/blog-post'),
+            'label' => t('admin.menu', 'Blog'),
+            'icon' => 'fa fa-coffee'
+        ];
+    });
+}
 
-AdminEvents::onAdminOptionsMenu(function($event)
+if (class_exists(AdminEvents::class))
 {
-    $modelClass = 'BasicApp\Blog\Forms\BlogConfigForm';
+    AdminEvents::onAdminOptionsMenu(function($event)
+    {
+        $modelClass = 'BasicApp\Blog\Forms\BlogConfigForm';
 
-    $event->items[BlogConfigForm::class] = [
-        'label' => t('admin.menu', 'Blog'),
-        'icon' => 'fa fa-coffee',
-        'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
-    ];
-});
+        $event->items[BlogConfigForm::class] = [
+            'label' => t('admin.menu', 'Blog'),
+            'icon' => 'fa fa-coffee',
+            'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
+        ];
+    });
+}
