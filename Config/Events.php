@@ -6,7 +6,7 @@ use BasicApp\Blog\Forms\BlogConfigForm;
 
 if (class_exists(AdminEvents::class))
 {
-    AdminEvents::onAdminMainMenu(function($menu)
+    AdminEvents::onMainMenu(function($menu)
     {
         $menu->items['blog'] = [
             'url' => Url::createUrl('admin/blog-post'),
@@ -18,7 +18,7 @@ if (class_exists(AdminEvents::class))
 
 if (class_exists(AdminEvents::class))
 {
-    AdminEvents::onAdminOptionsMenu(function($event)
+    AdminEvents::onOptionsMenu(function($event)
     {
         $modelClass = 'BasicApp\Blog\Forms\BlogConfigForm';
 
