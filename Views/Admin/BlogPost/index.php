@@ -22,15 +22,15 @@ $adminTheme = service('adminTheme');
 
 echo $adminTheme->table([
     'labels' => [
-        BlogPostModel::label('post_id'),
-        BlogPostModel::label('post_created_at'),
-        BlogPostModel::label('post_slug'),
-        BlogPostModel::label('post_title'),
-        BlogPostModel::label('post_active'),
+        BlogPostModel::fieldLabel('post_id'),
+        BlogPostModel::fieldLabel('post_created_at'),
+        BlogPostModel::fieldLabel('post_slug'),
+        BlogPostModel::fieldLabel('post_title'),
+        BlogPostModel::fieldLabel('post_active'),
         '',
         ''
     ],
-    'data' => $elements,
+    'elements' => $elements,
     'columns' => function($model) {
         return [
             $this->createColumn(['attribute' => 'post_id'])->displaySmall()->number(),
