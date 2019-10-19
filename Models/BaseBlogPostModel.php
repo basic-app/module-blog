@@ -15,7 +15,7 @@ abstract class BaseBlogPostModel extends \BasicApp\Core\Model
 
 	protected $primaryKey = 'post_id';
 
-	protected $labels = [
+	protected $fieldLabels = [
 		'post_id' => 'ID',
 		'post_slug' => 'Slug',
 		'post_title' => 'Title',
@@ -26,7 +26,7 @@ abstract class BaseBlogPostModel extends \BasicApp\Core\Model
 		'post_active' => 'Active'
 	];
 
-    protected $translations = 'blog';
+    protected $langCategory = 'blog';
 
 	protected $returnType = BlogPost::class;
 
