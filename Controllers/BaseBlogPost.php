@@ -13,7 +13,7 @@ use BasicApp\Blog\Models\BlogPostModel;
 use BasicApp\Blog\Config\Blog as BlogConfig;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-abstract class BaseBlogPost extends \BasicApp\Core\PublicController
+abstract class BaseBlogPost extends \BasicApp\System\Controller
 {
 
 	protected $perPage = 10;
