@@ -11,7 +11,7 @@ use BasicApp\Blog\Forms\BlogConfigForm;
 abstract class BaseBlog extends \BasicApp\Config\BaseConfig
 {
 
-    public $admin_editor_class = 'form-control markdown';
+    public $admin_editor_class;
 
     public $modelClass = BlogConfigForm::class;
 
