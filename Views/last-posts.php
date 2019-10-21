@@ -6,8 +6,8 @@ foreach($elements as $model)
 {
     $items[] = [
         'title' => $model->post_title,
-        'url' => $model->url(),
-        'created' => t('blog', 'Posted on {created}', ['{created}' => $model->createdAsString()]),
+        'url' => $model->getUrl(),
+        'created' => t('blog', 'Posted on {created}', ['{created}' => $model->getCreatedAsString()]),
         'description' => $model->post_description
     ];
 }
