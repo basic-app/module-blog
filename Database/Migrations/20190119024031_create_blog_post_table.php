@@ -9,7 +9,7 @@ namespace BasicApp\Blog\Database\Migrations;
 class Migration_create_blog_post_table extends \BasicApp\Core\Migration
 {
 
-	public $tableName = 'blog_posts';
+	public $tableName = 'posts';
 
 	public function up()
 	{

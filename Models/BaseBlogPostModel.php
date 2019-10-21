@@ -11,7 +11,7 @@ use Config\Services;
 abstract class BaseBlogPostModel extends \BasicApp\Core\Model
 {
 
-	protected $table = 'blog_posts';
+	protected $table = 'posts';
 
 	protected $primaryKey = 'post_id';
 
@@ -26,7 +26,7 @@ abstract class BaseBlogPostModel extends \BasicApp\Core\Model
 		'post_active' => 'Active'
 	];
 
-    protected $langCategory = 'blog';
+    protected $langCategory = 'post';
 
 	protected $returnType = BlogPost::class;
 
