@@ -35,7 +35,7 @@ echo $adminTheme->table([
         return [
             $this->createColumn(['attribute' => 'post_id'])->displaySmall()->number(),
             $this->createColumn(['attribute' => 'post_created_at'])->displayMedium(),
-            $this->createColumn(['attribute' => 'post_slug']),
+            $this->createColumn(['attribute' => 'post_slug'])->success(),
             $this->createColumn(['attribute' => 'post_title']),
             $this->createBooleanColumn(['attribute' => 'post_active']),
             $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']),
