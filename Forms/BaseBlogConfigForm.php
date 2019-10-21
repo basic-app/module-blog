@@ -17,7 +17,7 @@ abstract class BaseBlogConfigForm extends \BasicApp\Config\BaseConfigForm
         'admin_editor_class' => 'trim|max_length[255]'
     ];
 
-    protected $labels = [
+    protected $fieldLabels = [
         'admin_editor_class' => 'Admin Editor Class'
     ];
 
