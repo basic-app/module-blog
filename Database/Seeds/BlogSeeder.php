@@ -3,9 +3,6 @@
 namespace BasicApp\Blog\Database\Seeds;
 
 use BasicApp\Blog\Models\BlogPostModel;
-use BasicApp\Site\Models\PageModel;
-use BasicApp\Site\Models\MenuModel;
-use BasicApp\Site\Models\MenuItemModel;
 
 class BlogSeeder extends \CodeIgniter\Database\Seeder
 {
@@ -24,38 +21,6 @@ class BlogSeeder extends \CodeIgniter\Database\Seeder
             'post_text' => 'First post text.',
             'post_active' => 1
         ]);
-
-        if (class_exists(PageModel::class))
-        {
-            $page = PageModel::getPage('blog', false);
-
-            if (!$page)
-            {
-                PageModel::getPage('blog', true, [
-                    'page_name' => 'Blog',
-                    'page_text' => '<p>Blog page text.</p>',
-                    'page_published' => 1
-                ]);
-            }
-
-            if (class_exists(MenuModel::class))
-            {
-                $mainMenu = MenuModel::getMenu('main', false);
-
-                if ($mainMenu)
-                {
-                    MenuItemModel::getEntity(
-                        ['item_menu_id' => $mainMenu->menu_id, 'item_url' => '/blog'], 
-                        true, 
-                        [
-                            'item_name' => 'Blog',
-                            'item_enabled' => 1,
-                            'item_sort' => 5
-                        ]
-                    );
-                }
-            }
-        }
     }
 
 }
