@@ -6,6 +6,6 @@ $theme = service('theme');
 
 echo $theme->post([
 	'title' => $data->post_title,
-	'content' => $data->getText(),
+	'text' => $data->getText(),
 	'created' => t('blog', 'Posted on {created}', ['{created}' => $data->getCreatedAsString()]),
 ]);?>
