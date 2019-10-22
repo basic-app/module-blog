@@ -37,7 +37,7 @@ if (class_exists(BasicApp\Admin\AdminEvents::class))
     BasicApp\Admin\AdminEvents::onMainMenu(function($menu)
     {
         $menu->items['blog'] = [
-            'url' => Url::createUrl('admin/blog-post'),
+            'url' => BasicApp\Helpers\Url::createUrl('admin/blog-post'),
             'label' => t('admin.menu', 'Blog'),
             'icon' => 'fa fa-coffee'
         ];
