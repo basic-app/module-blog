@@ -1,8 +1,7 @@
 <?php
 
-use BasicApp\Helpers\Url;
 use BasicApp\Admin\AdminEvents;
-use BasicApp\Blog\Forms\BlogConfigForm;
+use BasicApp\System\SystemEvents;
 
 if (class_exists(AdminEvents::class))
 {
@@ -20,12 +19,19 @@ if (class_exists(AdminEvents::class))
 {
     AdminEvents::onOptionsMenu(function($event)
     {
-        $modelClass = 'BasicApp\Blog\Forms\BlogConfigForm';
+        $modelClass = BasicApp\Blog\Forms\BlogConfigForm::class;
 
-        $event->items[BlogConfigForm::class] = [
+        $event->items[$modelClass] = [
             'label' => t('admin.menu', 'Blog'),
             'icon' => 'fa fa-coffee',
-            'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
+            'url' => BasicApp\Helpers\Url::createUrl('admin/config', ['class' => $modelClass])
         ];
     });
 }
+
+SystemEvents::onSeed(function() {
+
+    $seeder = Config\Database::seeder();
+
+    $seeder->call(\BasicApp\Blog\Database\Seeds\BlogSeeder::class);
+});
