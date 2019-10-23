@@ -21,7 +21,11 @@ abstract class BaseBlogConfigForm extends \BasicApp\Config\BaseConfigForm
         'admin_editor_class' => 'Admin Editor Class'
     ];
 
-    protected $translations = 'blog';
+    protected $langCategory = 'blog';
+
+    protected $allowedFields = [
+        'admin_editor_class'
+    ];
 
     public function renderForm($form, $data)
     {
