@@ -33,11 +33,11 @@ echo $adminTheme->table([
     'elements' => $elements,
     'columns' => function($model) {
         return [
-            $this->createColumn(['attribute' => 'post_id'])->displaySmall()->number(),
-            $this->createColumn(['attribute' => 'post_created_at'])->displayMedium(),
-            $this->createColumn(['attribute' => 'post_slug'])->success(),
-            $this->createColumn(['attribute' => 'post_title']),
-            $this->createBooleanColumn(['attribute' => 'post_active']),
+            $this->createColumn(['field' => 'post_id'])->displaySmall()->number(),
+            $this->createColumn(['field' => 'post_created_at'])->displayMedium(),
+            $this->createColumn(['field' => 'post_slug'])->success(),
+            $this->createColumn(['field' => 'post_title']),
+            $this->createBooleanColumn(['field' => 'post_active']),
             $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']),
             $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete'])
         ];
