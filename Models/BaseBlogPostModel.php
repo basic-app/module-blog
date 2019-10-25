@@ -44,6 +44,11 @@ abstract class BaseBlogPostModel extends \BasicApp\Core\Model
         }
 
         $view->setVar('title', $post->post_title);
+
+        if ($post->post_description)
+        {
+            $view->setVar('description', $post->post_description);
+        }
     }
 
 }
