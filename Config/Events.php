@@ -1,5 +1,7 @@
 <?php
 
+use BasicApp\Helpers\CliHelper;
+
 if (class_exists(BasicApp\Site\SiteEvents::class))
 {
     BasicApp\Site\SiteEvents::onSeed(function() {
@@ -55,7 +57,19 @@ if (class_exists(BasicApp\Admin\AdminEvents::class))
     });
 }
 
-BasicApp\System\SystemEvents::onSeed(function() {
+BasicApp\System\SystemEvents::onSeed(function($event) {
+
+    if ($event->reset)
+    {
+        $db = db_connect();
+
+        if (!$db->simpleQuery('TRUNCATE TABLE posts'))
+        {
+            throw new Exception($db->error());
+        }
+
+        CliHelper::message('Truncated: posts');
+    }
 
     $seeder = Config\Database::seeder();
 
