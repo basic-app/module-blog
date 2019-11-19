@@ -14,7 +14,7 @@ abstract class BaseBlogConfigForm extends \BasicApp\Config\BaseConfigForm
     protected $returnType = BlogConfig::class;
 
     protected $validationRules = [
-        'admin_editor_class' => 'trim|max_length[255]'
+        'admin_editor_class' => 'not_special_chars|max_length[255]'
     ];
 
     protected $fieldLabels = [
