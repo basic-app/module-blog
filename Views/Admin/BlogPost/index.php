@@ -22,11 +22,11 @@ $adminTheme = service('adminTheme');
 
 echo $adminTheme->table([
     'labels' => [
-        BlogPostModel::fieldLabel('post_id'),
-        BlogPostModel::fieldLabel('post_created_at'),
-        BlogPostModel::fieldLabel('post_slug'),
-        BlogPostModel::fieldLabel('post_title'),
-        BlogPostModel::fieldLabel('post_active'),
+        $model->getFieldLabel('post_id'),
+        $model->getFieldLabel('post_created_at'),
+        $model->getFieldLabel('post_slug'),
+        $model->getFieldLabel('post_title'),
+        $model->getFieldLabel('post_active'),
         '',
         ''
     ],
