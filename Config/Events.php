@@ -1,77 +1,46 @@
 <?php
 
-use BasicApp\Helpers\CliHelper;
+use BasicApp\Helpers\Url;
+use BasicApp\Admin\AdminEvents;
+use BasicApp\System\SystemEvents;
+use BasicApp\System\Events\SystemResetEvent;
+use BasicApp\System\Events\SystemSeedEvent;
+use BasicApp\Blog\Database\Seeds\BlogResetSeeder;
+use BasicApp\Blog\Database\Seeds\BlogSeeder;
+use Config\Database;
+use BasicApp\Blog\Forms\BlogConfigForm;
 
-if (class_exists(BasicApp\Site\SiteEvents::class))
+if (class_exists(AdminEvents::class))
 {
-    BasicApp\Site\SiteEvents::onSeed(function() {
-
-        $page = BasicApp\Site\Models\PageModel::getPage('blog', false);
-
-        if (!$page)
-        {
-            BasicApp\Site\Models\PageModel::getPage('blog', true, [
-                'page_name' => 'Blog',
-                'page_text' => '<p>Blog page text.</p>',
-                'page_published' => 1
-            ]);
-        
-            $mainMenu = BasicApp\Site\Models\MenuModel::getMenu('main', false);
-
-            if ($mainMenu)
-            {
-                BasicApp\Site\Models\MenuItemModel::getEntity(
-                    ['item_menu_id' => $mainMenu->menu_id, 'item_url' => '/blog'], 
-                    true, 
-                    [
-                        'item_name' => 'Blog',
-                        'item_enabled' => 1,
-                        'item_sort' => 5
-                    ]
-                );
-            }
-        }
-    });
-}
-
-if (class_exists(BasicApp\Admin\AdminEvents::class))
-{
-    BasicApp\Admin\AdminEvents::onMainMenu(function($menu)
+    AdminEvents::onMainMenu(function($menu)
     {
         $menu->items['blog'] = [
-            'url' => BasicApp\Helpers\Url::createUrl('admin/blog-post'),
+            'url' => Url::createUrl('admin/blog-post'),
             'label' => t('admin.menu', 'Blog'),
             'icon' => 'fa fa-coffee'
         ];
     });
 
-    BasicApp\Admin\AdminEvents::onOptionsMenu(function($event)
+    AdminEvents::onOptionsMenu(function($event)
     {
-        $modelClass = BasicApp\Blog\Forms\BlogConfigForm::class;
-
-        $event->items[$modelClass] = [
+        $event->items[BlogConfigForm::class] = [
             'label' => t('admin.menu', 'Blog'),
             'icon' => 'fa fa-coffee',
-            'url' => BasicApp\Helpers\Url::createUrl('admin/config', ['class' => $modelClass])
+            'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
         ];
     });
 }
 
-BasicApp\System\SystemEvents::onSeed(function($event) {
+SystemEvents::onSeed(function(SystemSeedEvent $event)
+{
+    $seeder = Database::seeder();
 
-    if ($event->reset)
-    {
-        $db = db_connect();
+    $seeder->call(BlogSeeder::class);
+});
 
-        if (!$db->simpleQuery('TRUNCATE TABLE posts'))
-        {
-            throw new Exception($db->error());
-        }
+SystemEvents::onReset(function(SystemResetEvent $event)
+{
+    $seeder = Database::seeder();
 
-        CliHelper::message('Truncated: posts');
-    }
-
-    $seeder = Config\Database::seeder();
-
-    $seeder->call(\BasicApp\Blog\Database\Seeds\BlogSeeder::class);
+    $seeder->call(BlogResetSeeder::class);
 });
