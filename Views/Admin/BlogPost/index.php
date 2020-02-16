@@ -20,27 +20,48 @@ $this->data['actionMenu'][] = [
 
 $adminTheme = service('adminTheme');
 
-echo $adminTheme->table([
-    'labels' => [
-        $model->getFieldLabel('post_id'),
+echo $adminTheme->grid([
+    'headers' => [
+        [
+            'class' => $adminTheme::GRID_HEADER_PRIMARY_KEY,
+            'content' => $model->getFieldLabel('post_id')
+        ],
         $model->getFieldLabel('post_created_at'),
-        $model->getFieldLabel('post_slug'),
-        $model->getFieldLabel('post_title'),
+        [
+            'class' => $adminTheme::GRID_HEADER_LABEL,
+            'content' => $model->getFieldLabel('post_title')
+        ],
+        [
+            'class' => $adminTheme::GRID_HEADER_MEDIUM,
+            'content' => $model->getFieldLabel('post_slug')
+        ],
         $model->getFieldLabel('post_active'),
-        '',
-        ''
+        ['class' => $adminTheme::GRID_HEADER_BUTTON],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON]
     ],
-    'elements' => $elements,
-    'columns' => function($model) {
-        return [
-            $this->createColumn(['field' => 'post_id'])->displaySmall()->number(),
-            $this->createColumn(['field' => 'post_created_at'])->displayMedium(),
-            $this->createColumn(['field' => 'post_slug'])->success(),
-            $this->createColumn(['field' => 'post_title']),
-            $this->createBooleanColumn(['field' => 'post_active']),
-            $this->createUpdateLinkColumn(['action' => 'admin/blog-post/update']),
-            $this->createDeleteLinkColumn(['action' => 'admin/blog-post/delete'])
-        ];
+    'items' => function() use ($elements, $adminTheme) {
+
+        foreach($elements as $data)
+        {
+            yield [
+                $data->post_id,
+                $data->post_created_at,
+                $data->post_title,
+                $data->post_slug,
+                [
+                    'class' => $adminTheme::GRID_CELL_BOOLEAN,
+                    'content' => $data->post_active
+                ],
+                [
+                    'class' => $adminTheme::GRID_CELL_BUTTON_UPDATE,
+                    'url' => Url::returnUrl('admin/blog-post/update', ['id' => $data->post_id])
+                ],
+                [
+                    'class' => $adminTheme::GRID_CELL_BUTTON_DELETE,
+                    'url' => Url::returnUrl('admin/blog-post/delete', ['id' => $data->post_id])
+                ]
+            ];
+        }
     }
 ]);
 
