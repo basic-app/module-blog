@@ -35,9 +35,9 @@ echo $adminTheme->grid([
             'class' => $adminTheme::GRID_HEADER_MEDIUM,
             'content' => $model->getFieldLabel('post_slug')
         ],
-        $model->getFieldLabel('post_active'),
-        ['class' => $adminTheme::GRID_HEADER_BUTTON],
-        ['class' => $adminTheme::GRID_HEADER_BUTTON]
+        ['class' => $adminTheme::GRID_HEADER_BOOLEAN, 'content' => $model->getFieldLabel('post_active')],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON_UPDATE],
+        ['class' => $adminTheme::GRID_HEADER_BUTTON_DELETE]
     ],
     'items' => function() use ($elements, $adminTheme) {
 
@@ -48,18 +48,9 @@ echo $adminTheme->grid([
                 $data->post_created_at,
                 $data->post_title,
                 $data->post_slug,
-                [
-                    'class' => $adminTheme::GRID_CELL_BOOLEAN,
-                    'content' => $data->post_active
-                ],
-                [
-                    'class' => $adminTheme::GRID_CELL_BUTTON_UPDATE,
-                    'url' => Url::returnUrl('admin/blog-post/update', ['id' => $data->post_id])
-                ],
-                [
-                    'class' => $adminTheme::GRID_CELL_BUTTON_DELETE,
-                    'url' => Url::returnUrl('admin/blog-post/delete', ['id' => $data->post_id])
-                ]
+                $data->post_active,
+                ['url' => Url::returnUrl('admin/blog-post/update', ['id' => $data->post_id])],
+                ['url' => Url::returnUrl('admin/blog-post/delete', ['id' => $data->post_id])]
             ];
         }
     }
