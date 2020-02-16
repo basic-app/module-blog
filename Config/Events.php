@@ -25,7 +25,6 @@ if (class_exists(AdminEvents::class))
     {
         $event->items[BlogConfigForm::class] = [
             'label' => t('admin.menu', 'Blog'),
-            'icon' => 'fa fa-coffee',
             'url' => Url::createUrl('admin/config', ['class' => BlogConfigForm::class])
         ];
     });
