@@ -8,6 +8,7 @@ namespace BasicApp\Blog\Models;
 
 use BasicApp\Helpers\LocaleHelper;
 use BasicApp\Blog\BlogEvents;
+use BasicApp\Helpers\Url;
 
 abstract class BaseBlogPost extends \BasicApp\Core\Entity
 {
@@ -30,7 +31,7 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 			$url .= '-' . $this->post_slug;
 		}
 
-		return site_url($url);
+		return Url::createUrl($url);
 	}
 
 	public function getCreatedAsString()
