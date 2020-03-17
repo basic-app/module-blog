@@ -1,18 +1,6 @@
 <?php
 
-use BasicApp\Site\Models\PageModel;
-
-$items = [];
-
-foreach($elements as $data)
-{
-    $items[] = [
-        'title' => $data->post_title,
-        'url' => $data->getUrl(),
-        'created' => t('blog', 'Posted on {created}', ['{created}' => $data->getCreatedAsString()]),
-        'description' => $data->post_description
-    ];
-}
+use BasicApp\Page\Models\PageModel;
 
 $theme = service('theme');
 
@@ -26,6 +14,18 @@ if (class_exists(PageModel::class))
         'title' => $page->page_name,
         'text' => PageModel::pageText($page)
     ]);
+}
+
+$items = [];
+
+foreach($elements as $data)
+{
+    $items[] = [
+        'title' => $data->post_title,
+        'url' => $data->getUrl(),
+        'created' => t('blog', 'Posted on {created}', ['{created}' => $data->getCreatedAsString()]),
+        'description' => $data->post_description
+    ];
 }
 
 echo $theme->posts(['items' => $items]);
