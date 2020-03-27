@@ -9,6 +9,7 @@ namespace BasicApp\Blog\Models;
 use BasicApp\Helpers\LocaleHelper;
 use BasicApp\Blog\BlogEvents;
 use BasicApp\Helpers\Url;
+use CodeIgniter\I18n\Time;
 
 abstract class BaseBlogPost extends \BasicApp\Core\Entity
 {
@@ -36,7 +37,9 @@ abstract class BaseBlogPost extends \BasicApp\Core\Entity
 
 	public function getCreatedAsString()
 	{
-		return date('Y-m-d', strtotime($this->post_created_at));
+        $time = Time::parse($this->post_created_at);
+
+		return $time->humanize();
 	}
 
 	public function getText()
