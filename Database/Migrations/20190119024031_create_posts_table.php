@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Blog\Database\Migrations;
 
-class Migration_create_posts_table extends \BasicApp\Core\Migration
+class Migration_create_posts_table extends \BasicApp\Migration\BaseMigration
 {
 
 	public $tableName = 'posts';
