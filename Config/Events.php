@@ -9,10 +9,11 @@ use BasicApp\Blog\Database\Seeds\BlogResetSeeder;
 use BasicApp\Blog\Database\Seeds\BlogSeeder;
 use Config\Database;
 use BasicApp\Blog\Forms\BlogConfigForm;
+use BasicApp\AdminMenu\AdminMenuEvents;
 
-if (class_exists(AdminEvents::class))
+if (class_exists(AdminMenuEvents::class))
 {
-    AdminEvents::onMainMenu(function($menu)
+    AdminMenuEvents::onMainMenu(function($menu)
     {
         $menu->items['blog'] = [
             'url' => Url::createUrl('admin/blog-post'),
@@ -21,7 +22,7 @@ if (class_exists(AdminEvents::class))
         ];
     });
 
-    AdminEvents::onOptionsMenu(function($event)
+    AdminMenuEvents::onOptionsMenu(function($event)
     {
         $event->items[BlogConfigForm::class] = [
             'label' => t('admin.menu', 'Blog'),
