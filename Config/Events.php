@@ -32,7 +32,7 @@ if (class_exists(AdminMenuEvents::class))
     });
 }
 
-SystemEvents::onSeed(function(SystemSeedEvent $event)
+SystemEvents::onSeed2(function(SystemSeedEvent $event)
 {
     $seeder = Database::seeder();
 
