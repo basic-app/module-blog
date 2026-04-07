@@ -4,22 +4,21 @@
  * @license MIT
  * @link http://basic-app.com
  */
-namespace BasicApp\Blog\Widgets;
+namespace BasicApp\Blog\Cells;
 
 use BasicApp\Blog\Config\BlogConfig;
 use BasicApp\Blog\Models\BlogPostModel;
 use Config\Services;
+use CodeIgniter\View\Cells\Cell;
 
-abstract class BaseLastPosts extends \BasicApp\Core\Widget
+abstract class BaseLastPosts extends Cell
 {
 
     public $limit = 10;
 
     public $orderBy = 'post_created_at DESC';
 
-    public $viewPath = 'BasicApp\Blog';
-
-    public function run()
+    public function render() : string
     {
         $request = Services::request();
 
@@ -36,9 +35,8 @@ abstract class BaseLastPosts extends \BasicApp\Core\Widget
 
         $elements = $query->findAll($this->limit);
 
-        return $this->render('last-posts', [
+        return $this->view('last-posts_cell', [
             'elements' => $elements
         ]);
     }
-
 }
