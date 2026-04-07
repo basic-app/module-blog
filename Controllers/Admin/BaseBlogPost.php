@@ -10,7 +10,6 @@ use BasicApp\Blog\Models\Admin\BlogPostModel;
 
 abstract class BaseBlogPost extends \BasicApp\Admin\AdminCrudController
 {
-
 	protected $modelClass = BlogPostModel::class;
 
 	protected $viewPath = 'BasicApp\Blog\Admin\BlogPost';
@@ -21,4 +20,5 @@ abstract class BaseBlogPost extends \BasicApp\Admin\AdminCrudController
 
     protected $perPage = 10;
 
+    protected $layout = false;
 }
