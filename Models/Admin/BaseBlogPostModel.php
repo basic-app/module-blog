@@ -22,6 +22,7 @@ abstract class BaseBlogPostModel extends \BasicApp\Blog\Models\BlogPostModel
 	];
 
 	protected $validationRules = [
+        'post_id' => 'permit_empty|is_natural_no_zero',
 		'post_title' => 'not_special_chars|max_length[255]|required',
 		'post_description' => 'not_special_chars|max_length[255]|required',
 		'post_slug' => 'permit_empty|alpha_dash|max_length[255]|is_unique[posts.post_slug,post_id,{post_id}]',
