@@ -8,10 +8,9 @@ foreach($elements as $model)
         'title' => $model->post_title,
         'url' => $model->getUrl(),
         'created' => t('blog', 'Posted on {created}', ['{created}' => $model->getCreatedAsString()]),
+        'keywords' => $model->post_keywords,
         'description' => $model->post_description
     ];
 }
 
-$theme = service('theme');
-
-echo $theme->posts(['items' => $items]);
+echo view_cell('Site::posts', $items);
