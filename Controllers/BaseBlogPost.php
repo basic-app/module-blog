@@ -6,60 +6,33 @@
  */
 namespace BasicApp\Blog\Controllers;
 
-use Psr\Log\LoggerInterface;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
 use BasicApp\Blog\Models\BlogPostModel;
-use BasicApp\Blog\Config\Blog as BlogConfig;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Controllers\BaseController;
 
-abstract class BaseBlogPost extends \BasicApp\Site\SiteController
+abstract class BaseBlogPost extends BaseController
 {
-
-	protected $perPage = 10;
-
-	protected $orderBy = 'post_created_at DESC';
-
-    protected $viewPath = 'BasicApp\Blog\BlogPost';
-
-    protected $blogConfig;
-
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        parent::initController($request, $response, $logger);
-
-        $this->blogConfig = config(BlogConfig::class);
-    }
-
 	public function index()
 	{
-		$query = new BlogPostModel;
+		$query = model(BlogPostModel::class);
 
 		$query->where('post_active', 1);
 
-		if ($this->orderBy)
-		{
-			$query->orderBy($this->orderBy);
-		}
+		$query->orderBy('post_created_at DESC');
+	
+		$elements = $query->paginate(2, 'default');
 
-		if ($this->perPage)
-		{
-			$elements = $query->paginate($this->perPage);
-		}
-		else
-		{
-			$elements = $query->findAll();
-		} 
+        $pager = $query->pager;
 
-		return $this->render('index', [
-			'elements' => $elements,
-			'pager' => $query->pager
-		]);
+        return view('BasicApp\Blog/index', [
+            'elements' => $elements,
+            'pager' => $pager
+        ]);
 	}
 
 	public function view($id)
 	{
-		$query = new BlogPostModel;
+		$query = model(BlogPostModel::class);
 
 		$query->where('post_active', 1);
 
@@ -72,9 +45,8 @@ abstract class BaseBlogPost extends \BasicApp\Site\SiteController
 			throw new PageNotFoundException;
 		}
 
-		return $this->render('view', [
-			'data' => $data
-		]);
+        return view('BasicApp\Blog/view', [
+            'data' => $data
+        ]);
 	}
-
 }
