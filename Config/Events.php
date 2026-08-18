@@ -4,9 +4,7 @@ use BasicApp\Helpers\Url;
 use BasicApp\Admin\AdminEvents;
 use BasicApp\System\SystemEvents;
 use BasicApp\System\Events\SystemResetEvent;
-use BasicApp\System\Events\SystemSeedEvent;
 use BasicApp\Blog\Database\Seeds\BlogResetSeeder;
-use BasicApp\Blog\Database\Seeds\BlogSeeder;
 use Config\Database;
 use BasicApp\Blog\Forms\BlogConfigForm;
 use BasicApp\AdminMenu\AdminMenuEvents;
@@ -31,13 +29,6 @@ if (class_exists(AdminMenuEvents::class))
         ];
     });
 }
-
-SystemEvents::onSeed2(function(SystemSeedEvent $event)
-{
-    $seeder = Database::seeder();
-
-    $seeder->call(BlogSeeder::class);
-});
 
 SystemEvents::onReset(function(SystemResetEvent $event)
 {
